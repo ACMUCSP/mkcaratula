@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Generador de Carátulas | UCSP ACM Student Chapter</title>
+    <link href="{{ app.request.basepath }}/css/bootstrap.css" rel="stylesheet">
+    <link href="{{ app.request.basepath }}/css/bootstrap-responsive.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 10px; 
+        max-width: 800px;
+        margin: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <span class="brand"> UCSP ACM Student Chapter</span>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li> <a>Generador de Carátulas </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container row-fluid">
+
+      <div class="span8">
+        <form action="{{ path('caratula') }}" method="POST">
+          <label for="career"> Carrera: </label>
+          <input name="career" list="careers">
+          <datalist id="careers">
+            <option value="Ciencia de la Computación">
+            <option
+              value="Ingeniería Electrónica y de Telecomunicaciones">
+            <option value="Ingeniería Industrial">
+            <option value="Administración de Negocios">
+            <option value="Contabilidad">
+            <option value="Derecho">
+            <option value="Educación">
+            <option value="Psicología">
+          </datalist>
+          <label for="title"> Título del trabajo: </label>
+          <input name="title">
+          <label for="course"> Curso: </label>
+          <input name="course">
+          <label for="name">
+            Nombre (separar con comas para carátula grupal): </label>
+          <input name="name">
+          <label for="sem"> Semestre:</label>
+          <select name="sem">
+            <option> 1er </option>
+            <option> 2do </option>
+            <option> 3er </option>
+            <option> 4to </option>
+            <option> 5to </option>
+            <option> 6to </option>
+            <option> 7mo </option>
+            <option> 8vo </option>
+            <option> 9no </option>
+            <option> 10mo </option>
+          </select>
+          <label for="cat"> Categoría: </label>
+          <select name="cat">
+            <option value="El alumno declara">
+              Individual (Masc.) </option>
+            <option value="La alumna declara">
+              Individual (Fem.) </option>
+            <option value="Los alumnos declaran">
+              Grupal </option>
+          </select>
+          <br>
+          <input type="submit" value="Generar Carátula">
+          <input type="submit" name="tex" value="Obtener código Latex">
+        </form>
+      </div>
+
+      <div class="span4">
+        <img width="200px" src="{{ app.request.basepath }}/logo.png">
+      </div>
+
+    </div>
+
+    <hr class="featurette-divider">
+    <footer>
+      Creado por Aldo Culquicondor<br>
+      © 2014, <a href="mailto:acm@ucsp.edu.pe">Capítulo Estudiantil ACM UCSP</a>
+    </footer>
+
+    <script src="{{ app.request.basepath }}/js/jquery.js">
+    </script>
+    <script src="{{ app.request.basepath }}/js/bootstrap.min.js">
+    </script>
+  </body>
+</html>
+

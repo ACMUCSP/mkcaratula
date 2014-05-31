@@ -1,0 +1,60 @@
+\documentclass[pdftex,12pt,a4paper]{article}
+
+\usepackage[pdftex]{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[right=2.5cm,left=4cm,top=4cm,bottom=2.5cm]{geometry}
+\linespread{1.5}\selectfont
+\usepackage{setspace}
+
+% Comentar las 2 lineas siguientes para conservar la fuente predeterminada
+% de latex
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\begin{document}
+
+\begin{titlepage}
+
+\begin{minipage}[t][0.99\textheight][t]{0.9\textwidth}
+
+  \begin{center}
+
+  \begin{flushright}
+    \includegraphics[width=0.5\textwidth]{ucsp.png}\\[1cm]
+    \end{flushright}
+    \textsc{\Huge\textbf{ {{ career }} } }\\[0.8cm]
+    \textsc{\LARGE\textbf{ {{ title }} } }\\[0.8cm]
+    \textsc{\huge\textbf{ {{ course }} } }\\[1.8cm]
+  \end{center}
+
+  \begin{flushright}
+    \begin{minipage}{0.6\textwidth}
+    \begin{flushleft}
+    \textsc{\Large {{ name }}\\[0.25cm]}
+    \textsc{\Large {{ sem }} Semestre}\\[0.2cm]
+    \textsc{\Large \the\year}\\
+    \end{flushleft}
+    \end{minipage}
+  \end{flushright}
+
+  \vfill
+  \begin{center}
+    \begin{minipage}{0.95\textwidth}
+      \large{
+      ``{{ cat }} haber realizado el presente trabajo de acuerdo
+      a las normas de la Universidad Católica San Pablo''}
+      \\[1.9cm]
+    \end{minipage}
+
+    \begin{minipage}{0.6\textwidth}
+      \rule{\textwidth}{0.8pt}
+    \end{minipage}
+  \end{center}
+
+\end{minipage}
+
+\end{titlepage}
+
+\end{document}
