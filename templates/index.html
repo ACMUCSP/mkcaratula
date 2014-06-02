@@ -1,102 +1,129 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="es">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Generador de Carátulas | UCSP ACM Student Chapter</title>
-    <link href="{{ app.request.basepath }}/css/bootstrap.css" rel="stylesheet">
-    <link href="{{ app.request.basepath }}/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <link href="{{ app.request.basepath }}/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <style>
       body {
         padding-top: 10px; 
-        max-width: 800px;
         margin: auto;
+      }
+      .v-center {
+        display: table-cell;
+        vertical-align: middle;
       }
     </style>
   </head>
-
   <body>
 
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="container">
-          <span class="brand"> UCSP ACM Student Chapter</span>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li> <a>Generador de Carátulas </a></li>
-            </ul>
+    <div class="container">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">UCSP ACM</a>
           </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Generador de Carátulas</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div> 
+
+
+      <div class="row">
+        <div class="col-sm-8">
+          <form action="{{ path('caratula') }}" method="POST" role="form">
+            <div class="form-group">
+              <label for="career"> Carrera</label>
+              <input id="career" class="form-control" name="career" list="careers">
+              <datalist id="careers">
+                <option value="Ciencia de la Computación">
+                <option
+                  value="Ingeniería Electrónica y de Telecomunicaciones">
+                <option value="Ingeniería Industrial">
+                <option value="Administración de Negocios">
+                <option value="Contabilidad">
+                <option value="Derecho">
+                <option value="Educación">
+                <option value="Psicología">
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label for="title"> Título del trabajo: </label>
+              <input id="title" class="form-control" name="title">
+            </div>
+            
+            <div class="form-group">
+              <label for="course"> Curso: </label>
+              <input id="course" class="form-control" name="course">
+            </div>
+
+            <div class="form-group">
+              <label for="name">
+                Nombre (separar con comas para carátula grupal): </label>
+              <input id="name" class="form-control" name="name">
+            </div>
+            <div class="form-group">
+              <label for="sem"> Semestre:</label>
+              <select id="sem" class="form-control" name="sem">
+                <option> 1er </option>
+                <option> 2do </option>
+                <option> 3er </option>
+                <option> 4to </option>
+                <option> 5to </option>
+                <option> 6to </option>
+                <option> 7mo </option>
+                <option> 8vo </option>
+                <option> 9no </option>
+                <option> 10mo </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cat"> Categoría: </label>
+              <select id="cat" class="form-control" name="cat">
+                <option value="El alumno declara">
+                  Individual (Masc.) </option>
+                <option value="La alumna declara">
+                  Individual (Fem.) </option>
+                <option value="Los alumnos declaran">
+                  Grupal </option>
+              </select>
+            </div>
+            <input type="submit" class="btn btn-default" value="Generar Carátula">
+            <input type="submit" class="btn btn-default" name="tex" value="Obtener código Latex">
+          </form>
+        </div>
+
+        <div class="col-sm-4 text-center">
+          <img width="200px" src="{{ app.request.basepath }}/logo.png">
         </div>
       </div>
+
+      <hr class="featurette-divider">
+      <footer>
+        Creado por Aldo Culquicondor<br>
+        © 2014, <a href="mailto:acm@ucsp.edu.pe">Capítulo Estudiantil ACM UCSP</a>
+      </footer>
     </div>
 
-    <div class="container row-fluid">
-
-      <div class="span8">
-        <form action="{{ path('caratula') }}" method="POST">
-          <label for="career"> Carrera: </label>
-          <input name="career" list="careers">
-          <datalist id="careers">
-            <option value="Ciencia de la Computación">
-            <option
-              value="Ingeniería Electrónica y de Telecomunicaciones">
-            <option value="Ingeniería Industrial">
-            <option value="Administración de Negocios">
-            <option value="Contabilidad">
-            <option value="Derecho">
-            <option value="Educación">
-            <option value="Psicología">
-          </datalist>
-          <label for="title"> Título del trabajo: </label>
-          <input name="title">
-          <label for="course"> Curso: </label>
-          <input name="course">
-          <label for="name">
-            Nombre (separar con comas para carátula grupal): </label>
-          <input name="name">
-          <label for="sem"> Semestre:</label>
-          <select name="sem">
-            <option> 1er </option>
-            <option> 2do </option>
-            <option> 3er </option>
-            <option> 4to </option>
-            <option> 5to </option>
-            <option> 6to </option>
-            <option> 7mo </option>
-            <option> 8vo </option>
-            <option> 9no </option>
-            <option> 10mo </option>
-          </select>
-          <label for="cat"> Categoría: </label>
-          <select name="cat">
-            <option value="El alumno declara">
-              Individual (Masc.) </option>
-            <option value="La alumna declara">
-              Individual (Fem.) </option>
-            <option value="Los alumnos declaran">
-              Grupal </option>
-          </select>
-          <br>
-          <input type="submit" value="Generar Carátula">
-          <input type="submit" name="tex" value="Obtener código Latex">
-        </form>
-      </div>
-
-      <div class="span4">
-        <img width="200px" src="{{ app.request.basepath }}/logo.png">
-      </div>
-
-    </div>
-
-    <hr class="featurette-divider">
-    <footer>
-      Creado por Aldo Culquicondor<br>
-      © 2014, <a href="mailto:acm@ucsp.edu.pe">Capítulo Estudiantil ACM UCSP</a>
-    </footer>
-
-    <script src="{{ app.request.basepath }}/js/jquery.js">
-    </script>
-    <script src="{{ app.request.basepath }}/js/bootstrap.min.js">
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
-
