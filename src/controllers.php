@@ -12,8 +12,7 @@ $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html', array());
 })->bind('homepage');
 
-function getNames($s) {
-  $L = split(',', $s);
+function joinNames($L) {
   $n = count($L);
   if ($n) {
     $s = $L[0];
@@ -25,10 +24,19 @@ function getNames($s) {
   }
 }
 
+function processContext($context) {
+  if (array_key_exists('name', $context)) {
+    $L = split(',', $context['name']);
+    $context['name'] = joinNames($L);
+    $context['number'] = count($L);
+  } else {
+    $context['number'] = 1;
+  }
+  return $context;
+}
+
 $app->post('/', function(Request $request) use ($app) {
-  $context = $request->request->all();
-  if (array_key_exists('name', $context))
-    $context['name'] = getNames($context['name']);
+  $context = processContext($request->request->all());
   $tex = $app['twig']->render('caratula.tex', $context);
   if (array_key_exists('tex', $context))
     return new Response($tex, 200, array('Content-Type' => 'text/plain'));

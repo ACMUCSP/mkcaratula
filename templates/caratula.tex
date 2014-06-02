@@ -45,12 +45,27 @@
       \large{
       ``{{ cat }} haber realizado el presente trabajo de acuerdo
       a las normas de la Universidad Católica San Pablo''}
-      \\[1.9cm]
     \end{minipage}
 
-    \begin{minipage}{0.6\textwidth}
-      \rule{\textwidth}{0.8pt}
-    \end{minipage}
+    \vspace{1.8cm}
+
+    \line(1,0){70}
+    {% if number > 1 %}
+      {% for i in 2..min(number,4) %}
+        \hspace{0.8em}
+        \line(1,0){70}
+      {% endfor %}
+      {% if number > 4 %}
+
+      \vspace{0.7cm}
+
+        {% for i in 5..number %}
+          \hspace{0.8em}
+          \line(1,0){70}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+
   \end{center}
 
 \end{minipage}
