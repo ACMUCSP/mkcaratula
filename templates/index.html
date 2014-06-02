@@ -48,7 +48,10 @@
 
 
       <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-4 text-center col-sm-push-8">
+          <img width="200px" src="{{ app.request.basepath }}/logo.png">
+        </div>
+        <div class="col-sm-8 col-sm-pull-4">
           <form action="{{ path('caratula') }}" method="POST" role="form">
             <div class="form-group">
               <label for="career"> Carrera</label>
@@ -110,10 +113,6 @@
             <input type="submit" class="btn btn-default" name="tex" value="Obtener código Latex">
           </form>
         </div>
-
-        <div class="col-sm-4 text-center">
-          <img width="200px" src="{{ app.request.basepath }}/logo.png">
-        </div>
       </div>
 
       <hr class="featurette-divider">
@@ -123,7 +122,7 @@
       </footer>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
