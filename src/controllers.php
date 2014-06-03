@@ -24,6 +24,21 @@ function joinNames($L) {
   }
 }
 
+function filterQuote($s) {
+  $single = false;
+  $double = false;
+  $r = '';
+  for ($i = 0; $i < strlen($s); ++$i) {
+    if ($s[$i] == '"') {
+      $r .= $double ? "''" : "``";
+      $double = ! $double;
+    } else {
+      $r .= $s[$i];
+    }
+  }
+  return $r;
+}
+
 function processContext($context) {
   if (array_key_exists('name', $context)) {
     $L = split(',', $context['name']);
@@ -31,6 +46,9 @@ function processContext($context) {
     $context['number'] = count($L);
   } else {
     $context['number'] = 1;
+  }
+  if (array_key_exists('title', $context)) {
+    $context['title'] = filterQuote($context['title']);
   }
   return $context;
 }
