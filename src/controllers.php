@@ -60,7 +60,6 @@ $app->post('/', function(Request $request) use ($app) {
     return new Response($tex, 200, array('Content-Type' => 'text/plain'));
   $location = __DIR__ . '/../web/tmp/';
   $tmpdir = exec('mktemp -d -p ' . $location);
-  exec('cp ' . __DIR__ . '/../templates/ucsp.png ' . $tmpdir);
   $comp_pr = new Process('pdflatex', $tmpdir, array('PATH' => '/usr/bin'), $tex);
   $comp_pr->run();
   $response = null;
