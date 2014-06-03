@@ -41,7 +41,7 @@ function filterQuote($s) {
 
 function processContext($context) {
   if (array_key_exists('name', $context)) {
-    $L = split(',', $context['name']);
+    $L = split('/', $context['name']);
     $context['name'] = joinNames($L);
     $context['number'] = count($L);
   } else {
