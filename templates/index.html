@@ -58,23 +58,25 @@
               <input id="career" class="form-control" name="career" list="careers">
               <datalist id="careers">
                 <option value="Ciencia de la Computación">
-                <option
-                  value="Ingeniería Electrónica y de Telecomunicaciones">
-                <option value="Ingeniería Industrial">
                 <option value="Administración de Negocios">
                 <option value="Contabilidad">
                 <option value="Derecho">
                 <option value="Educación">
+                <option
+                  value="Ingeniería Electrónica y de Telecomunicaciones">
+                <option value="Ingeniería Industrial">
+                <option value="Ingeniería Informática">
+                <option value="Ingeniería de Telecomunicaciones">
                 <option value="Psicología">
               </datalist>
             </div>
             <div class="form-group">
-              <label for="title"> Título del trabajo: </label>
+              <label for="title"> Título del trabajo </label>
               <input id="title" class="form-control" name="title">
             </div>
             
             <div class="form-group">
-              <label for="course"> Curso: </label>
+              <label for="course"> Curso </label>
               <input id="course" class="form-control" name="course">
             </div>
 
@@ -84,7 +86,7 @@
               <input id="name" class="form-control" name="name">
             </div>
             <div class="form-group">
-              <label for="sem"> Semestre:</label>
+              <label for="sem"> Semestre </label>
               <select id="sem" class="form-control" name="sem">
                 <option> 1er </option>
                 <option> 2do </option>
@@ -99,7 +101,7 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="cat"> Categoría: </label>
+              <label for="cat"> Categoría </label>
               <select id="cat" class="form-control" name="cat">
                 <option value="El alumno declara">
                   Individual (Masc.) </option>
@@ -122,7 +124,7 @@
       </footer>
     </div>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/jquery.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
   </body>
 </html>
