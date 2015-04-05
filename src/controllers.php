@@ -2,9 +2,6 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Process\Process;
 
 
@@ -34,7 +31,7 @@ function filterQuote($s) {
       $double = !$double;
     } elseif ($s[$i] == "'") {
       $r .= $single ? "'" : "`";
-      $double = !$single;
+      $single = !$single;
     } else {
       $r .= $s[$i];
     }
@@ -72,7 +69,8 @@ $app->post('/', function(Request $request) use ($app) {
           $app['twig']->render('latex_gen.html', array('code' => $tex)));
   $location = __DIR__ . '/../web/tmp/';
   $tmpdir = exec('mktemp -d -p ' . $location);
-  $comp_pr = new Process('pdflatex', $tmpdir, array('PATH' => '/usr/bin'), $tex);
+  $comp_pr = new Process('pdflatex -halt-on-error',
+      $tmpdir, array('PATH' => '/usr/bin'), $tex);
   $comp_pr->run();
   $response = null;
   if ($comp_pr->isSuccessful()) {
