@@ -3,4 +3,4 @@ composer.lock
 composer.phar
 /var/
 *.swp
-
+.idea/

@@ -6,23 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Generador de Carátulas | UCSP ACM Student Chapter</title>
 
-    <link href="{{ app.request.basepath }}/css/bootstrap.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style>
-      body {
-        padding-top: 10px; 
-        margin: auto;
-      }
-      .v-center {
-        display: table-cell;
-        vertical-align: middle;
-      }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/main.css">
+
   </head>
   <body>
 
@@ -36,86 +22,116 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">UCSP ACM</a>
+            <a class="navbar-brand" href="#">Generador de Carátulas UCSP</a>
           </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Generador de Carátulas</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </div> 
 
 
       <div class="row">
-        <div class="col-sm-4 text-center col-sm-push-8">
+        <div class="col-sm-3 text-center col-sm-push-9">
           <a href="http://fb.com/ACMUCSP"><img width="200px" src="{{ app.request.basepath }}/logo.png"></a>
         </div>
-        <div class="col-sm-8 col-sm-pull-4">
-          <form action="{{ path('caratula') }}" method="POST" role="form">
+        <div class="col-sm-9 col-sm-pull-3">
+          <form action="{{ path('caratula') }}" method="POST" role="form" class="form-horizontal">
             <div class="form-group">
-              <label for="career"> Carrera</label>
-              <input id="career" class="form-control" name="career" list="careers">
-              <datalist id="careers">
-                <option value="Ciencia de la Computación">
-                <option value="Administración de Negocios">
-                <option value="Contabilidad">
-                <option value="Derecho">
-                <option value="Educación">
-                <option value="Ingeniería Civil">
-                <option
-                  value="Ingeniería Electrónica y de Telecomunicaciones">
-                <option value="Ingeniería Industrial">
-                <option value="Ingeniería Informática">
-                <option value="Ingeniería de Telecomunicaciones">
-                <option value="Psicología">
-              </datalist>
+              <label for="career" class="col-sm-2 control-label"> Carrera</label>
+              <div class="col-sm-10">
+                <input id="career" class="form-control" name="career" list="careers">
+                <datalist id="careers">
+                  <option value="Ciencia de la Computación">
+                  <option value="Administración de Negocios">
+                  <option value="Contabilidad">
+                  <option value="Derecho">
+                  <option value="Educación">
+                  <option value="Ingeniería Civil">
+                  <option
+                    value="Ingeniería Electrónica y de Telecomunicaciones">
+                  <option value="Ingeniería Industrial">
+                  <option value="Ingeniería Informática">
+                  <option value="Ingeniería de Telecomunicaciones">
+                  <option value="Psicología">
+                </datalist>
+              </div>
             </div>
             <div class="form-group">
-              <label for="title"> Título del trabajo </label>
-              <input id="title" class="form-control" name="title">
+              <label for="title" class="col-sm-2 control-label"> Título del trabajo </label>
+              <div class="col-sm-10">
+                <input id="title" class="form-control" name="title">
+              </div>
             </div>
             
             <div class="form-group">
-              <label for="course"> Curso </label>
-              <input id="course" class="form-control" name="course">
+              <label for="course" class="col-sm-2 control-label"> Curso </label>
+              <div class="col-sm-10">
+                <input id="course" class="form-control" name="course">
+              </div>
             </div>
 
             <div class="form-group">
-              <label for="name">
+              <label class="col-sm-2 control-label"> Tipo </label>
+              <div class="col-sm-10">
+                <label class="radio-inline">
+                  <input type="radio" name="cat" value="El alumno declara" checked> Individual (Masc.)
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="cat" value="La alumna declara"> Individual (Fem.)
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="cat" value="Los alumnos declaran"> Grupal
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="name" class="col-sm-2 control-label">
                 Nombre </label>
-              (separar con <em>slash</em> para carátula grupal)
-              <input id="name" class="form-control" name="name">
+              <div class="col-sm-10">
+                <input id="name" class="form-control" name="name">
+              </div>
             </div>
             <div class="form-group">
-              <label for="sem"> Semestre </label>
-              <select id="sem" class="form-control" name="sem">
-                <option> 1er </option>
-                <option> 2do </option>
-                <option> 3er </option>
-                <option> 4to </option>
-                <option> 5to </option>
-                <option> 6to </option>
-                <option> 7mo </option>
-                <option> 8vo </option>
-                <option> 9no </option>
-                <option> 10mo </option>
-                <option> 11er </option>
-                <option> 12do </option>
-              </select>
+              <label for="sem" class="col-sm-2 control-label"> Semestre </label>
+              <div class="col-sm-10">
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="1er" checked> 1er
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="2do"> 2do
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="3er"> 3er
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="4to"> 4to
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="5to"> 5to
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="6to"> 6to
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="7mo"> 7mo
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="8vo"> 8vo
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="9no"> 9no
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="10mo"> 10mo
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="11er"> 11er
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="sem" value="12do"> 12do
+                </label>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="cat"> Categoría </label>
-              <select id="cat" class="form-control" name="cat">
-                <option value="El alumno declara">
-                  Individual (Masc.) </option>
-                <option value="La alumna declara">
-                  Individual (Fem.) </option>
-                <option value="Los alumnos declaran">
-                  Grupal </option>
-              </select>
-            </div>
-            <input type="submit" class="btn btn-default" value="Generar Carátula">
+            <input type="submit" class="btn btn-primary" value="Generar Carátula">
             <input type="submit" class="btn btn-default" name="tex" value="Obtener código Latex">
           </form>
         </div>
@@ -128,7 +144,8 @@
       </footer>
     </div>
 
-    <script src="{{ app.request.basepath }}/js/jquery.min.js"></script>
-    <script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
+    <script src="{{ app.request.basepath }}/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   </body>
 </html>
