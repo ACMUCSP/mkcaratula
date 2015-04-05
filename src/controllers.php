@@ -67,7 +67,7 @@ function processContext($context) {
 $app->post('/', function(Request $request) use ($app) {
   $context = processContext($request->request->all());
   $tex = $app['twig']->render('caratula.tex', $context);
-  if (array_key_exists('tex', $context))
+  if (($context['tex'] ?: 'false') != 'false')
     return new Response($tex, 200, array('Content-Type' => 'text/plain'));
   $location = __DIR__ . '/../web/tmp/';
   $tmpdir = exec('mktemp -d -p ' . $location);
@@ -80,7 +80,7 @@ $app->post('/', function(Request $request) use ($app) {
     fclose($file);
     $response = new Response($pdf, 200, array('Content-Type' => 'application/pdf'));
   } else {
-    $response = new Response($comp_pr->getOutput(), 200, array('Content-Type' => 'text/plain'));
+    $response = new Response($comp_pr->getOutput(), 400, array('Content-Type' => 'text/plain'));
   }
   exec('rm -r ' . $tmpdir);
   return $response;
