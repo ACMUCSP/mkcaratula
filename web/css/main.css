@@ -5,3 +5,7 @@ body {
 .clickable {
     cursor: pointer;
 }
+pre {
+    max-height: 350px;
+    overflow: auto;
+}
