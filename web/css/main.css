@@ -2,3 +2,6 @@ body {
     padding-top: 10px;
     margin: auto;
 }
+.clickable {
+    cursor: pointer;
+}

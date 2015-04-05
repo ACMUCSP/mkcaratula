@@ -31,7 +31,10 @@ function filterQuote($s) {
   for ($i = 0; $i < strlen($s); ++$i) {
     if ($s[$i] == '"') {
       $r .= $double ? "''" : "``";
-      $double = ! $double;
+      $double = !$double;
+    } elseif ($s[$i] == "'") {
+      $r .= $single ? "'" : "`";
+      $double = !$single;
     } else {
       $r .= $s[$i];
     }
@@ -41,7 +44,7 @@ function filterQuote($s) {
 
 function processContext($context) {
   if (array_key_exists('name', $context)) {
-    $L = split('/', $context['name']);
+    $L = explode('/', $context['name']);
     $context['name'] = joinNames($L);
     $context['number'] = count($L);
   } else {
@@ -50,6 +53,14 @@ function processContext($context) {
   if (array_key_exists('title', $context)) {
     $context['title'] = filterQuote($context['title']);
   }
+  $categories = array(
+    'inmasc' => 'El alumno declara',
+    'infem' => 'La alumna declara',
+    'grupal' => 'Los alumnos declaran');
+  $context['cat'] =
+      array_key_exists('cat', $context) &&
+      array_key_exists($context['cat'], $categories) ?
+          $categories[$context['cat']] : $categories['inmasc'];
   return $context;
 }
 
