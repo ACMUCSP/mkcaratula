@@ -3,13 +3,14 @@
 \usepackage[pdftex]{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage[right=2.5cm,left=2.5cm,top=3.5cm,bottom=2.5cm]{geometry}
+\usepackage[a4paper]{geometry}
 \linespread{1.5}\selectfont
 \usepackage{setspace}
 \usepackage{helvet}
 
 \begin{document}
 
+\newgeometry{right=2.5cm,left=2.5cm,top=3.5cm,bottom=2.5cm}
 \begin{titlepage}
 \fontfamily{phv}\selectfont
 
@@ -67,5 +68,6 @@
 \end{minipage}
 
 \end{titlepage}
+\restoregeometry
 
 \end{document}
