@@ -3,7 +3,7 @@
 \usepackage[pdftex]{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage[right=2.5cm,left=4cm,top=4cm,bottom=2.5cm]{geometry}
+\usepackage[right=2.5cm,left=2.5cm,top=3.5cm,bottom=2.5cm]{geometry}
 \linespread{1.5}\selectfont
 \usepackage{setspace}
 
@@ -24,16 +24,16 @@
   \begin{flushright}
     \includegraphics[width=0.5\textwidth]{../ucsp.png}\\[1cm]
     \end{flushright}
-    \textsc{\Huge\textbf{ {{ career|raw }} } }\\[0.8cm]
-    \textsc{\LARGE\textbf{ {{ title|raw }} } }\\[0.8cm]
-    \textsc{\huge\textbf{ {{ course|raw }} } }\\[1.8cm]
+    \textsc{\Huge {{ career|raw }} }\\[0.8cm]
+    \textsc{\LARGE {{ title|raw }} }\\[0.8cm]
+    \textsc{\huge {{ course|raw }} }\\[1.5cm]
   \end{center}
 
   \begin{flushright}
-    \begin{minipage}{0.6\textwidth}
+    \begin{minipage}{0.5\textwidth}
     \begin{flushleft}
-    \textsc{\Large {{ name|raw }}\\[0.25cm]}
-    \textsc{\Large {{ sem }} Semestre}\\[0.2cm]
+    \textsc{\Large {{ name|raw }}\\[0.5cm]}
+    \textsc{\Large {{ sem }} Semestre}\\[0.5cm]
     \textsc{\Large \the\year}\\
     \end{flushleft}
     \end{minipage}
