@@ -19,7 +19,7 @@ angular.module('CaratulaApp', [])
             }
         };
         $scope.removeNameBox = function (item) {
-            if ($scope.names.length === 1) {
+            if ($scope.names.length <= 2) {
                 item.name = '';
             } else {
                 var cnt = 0, newNames = [];
