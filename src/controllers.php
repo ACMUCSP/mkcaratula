@@ -61,7 +61,7 @@ function processContext($context) {
   return $context;
 }
 
-$app->post('/', function(Request $request) use ($app) {
+$app->post('/gen', function(Request $request) use ($app) {
   $context = processContext($request->request->all());
   $tex = $app['twig']->render('caratula.tex', $context);
   if (($context['tex'] ?: 'false') != 'false')
