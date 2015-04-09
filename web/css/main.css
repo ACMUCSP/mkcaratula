@@ -2,8 +2,13 @@ body {
     padding-top: 10px;
     margin: auto;
 }
-.clickable {
+.erase-non-clickable {
+    cursor: default;
+    color: #777;
+}
+.erase-clickable {
     cursor: pointer;
+    color: #d9534f;
 }
 pre {
     max-height: 350px;

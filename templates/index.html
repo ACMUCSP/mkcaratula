@@ -2,7 +2,7 @@
 
 {% block content %}
 <div ng-controller="CaratulaController">
-  <form action="{{ path('caratula') }}" method="POST" role="form" class="form-horizontal">
+  <form action="{{ path('caratula') }}" method="POST" role="form" class="form-horizontal" target="_blank">
     {% verbatim %}
     <div class="form-group">
       <label for="career" class="col-sm-2 control-label"> Carrera</label>
@@ -28,14 +28,14 @@
     <div class="form-group">
       <label for="title" class="col-sm-2 control-label"> Título del trabajo </label>
       <div class="col-sm-10">
-        <input id="title" class="form-control" name="title" ng-model="data.title">
+        <input id="title" class="form-control" name="title" ng-model="data.title" required>
       </div>
     </div>
 
     <div class="form-group">
       <label for="course" class="col-sm-2 control-label"> Curso </label>
       <div class="col-sm-10">
-        <input id="course" class="form-control" name="course" ng-model="data.course">
+        <input id="course" class="form-control" name="course" ng-model="data.course" required>
       </div>
     </div>
 
@@ -58,7 +58,7 @@
       <label for="name_ind" class="col-sm-2 control-label">
         Nombre </label>
       <div class="col-sm-10">
-        <input id="name_ind" class="form-control" name="name" ng-model="data.name">
+        <input id="name_ind" class="form-control" name="name" ng-model="data.name" required>
       </div>
     </div>
     <div class="form-group has-feedback" ng-show="data.cat === 'grupal'" ng-repeat="item in names">
@@ -68,8 +68,8 @@
         <div class="input-group">
           <input id="name_{{item.id}}" class="form-control" ng-model="item.name"
                  ng-change="addNewNameBox(item)">
-          <span class="input-group-addon glyphicon glyphicon-remove clickable"
-              ng-disabled="item.name || (item.id > 1 && item.id < names.length)"
+          <span class="input-group-addon glyphicon glyphicon-remove erase-non-clickable"
+              ng-class="{ 'erase-clickable': item.name !== '' }"
               ng-click="removeNameBox(item)"></span>
         </div>
       </div>
