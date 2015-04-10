@@ -23,7 +23,7 @@
         "symfony/validator": "~2.3"
     },
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-4": { "Caratula\\": "src/" }
     },
     "extra": {
         "branch-alias": {

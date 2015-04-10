@@ -3,11 +3,20 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Process\Process;
+use Caratula\Utils\FileManager;
 
 
 $app->get('/', function () use ($app) {
+    $fs = new FileManager();
     return $app['twig']->render('index.html', array());
 })->bind('homepage');
+
+$app->get('/down/{key}', function ($key) use ($app) {
+    $fs = new FileManager();
+    if($fs->exist($key))return $app->redirect($fs->getURL($key));
+
+    return $app['twig']->render('errors/404.html', array());
+})->bind('download');
 
 function joinNames($L) {
   $n = count($L);
@@ -77,6 +86,12 @@ $app->post('/gen', function(Request $request) use ($app) {
     $file = fopen($tmpdir . '/texput.pdf', 'r');
     $pdf = fread($file, filesize($tmpdir . '/texput.pdf'));
     fclose($file);
+
+    // Generating remote file
+      $fs = new FileManager();
+      $key = $fs->upload($tmpdir . '/texput.pdf');
+    //
+
     $response = new Response($pdf, 200, array('Content-Type' => 'application/pdf'));
   } else {
     $response = new Response(
