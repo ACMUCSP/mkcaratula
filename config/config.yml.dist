@@ -1,0 +1,5 @@
+ftp:
+    host: host
+    user: user
+    password: password
+    path: http://dominio.com/

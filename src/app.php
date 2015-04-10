@@ -11,6 +11,7 @@ $app->register(new UrlGeneratorServiceProvider());
 $app->register(new ValidatorServiceProvider());
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new TwigServiceProvider());
+$app->register(new DerAlex\Silex\YamlConfigServiceProvider(__DIR__ .'/../config/config.yml'));
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     // add custom globals, filters, tags, ...
 
