@@ -4,3 +4,4 @@ composer.phar
 /var/
 *.swp
 .idea/
+/config/config.yml

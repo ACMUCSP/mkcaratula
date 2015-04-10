@@ -13,10 +13,11 @@ class FileManager
 
     public function __construct(Application $app)
     {
-        $this->host = $app['config']['ftp']['host'];
-        $this->user = $app['config']['ftp']['user'];
-        $this->password = $app['config']['ftp']['password'];
-        $this->path = $app['config']['ftp']['path'];
+        $ftp_config = $app['config']['ftp'];
+        $this->host = $ftp_config['host'];
+        $this->user = $ftp_config['user'];
+        $this->password = $ftp_config['password'];
+        $this->path = $ftp_config['path'];
     }
 
     public function upload($file, &$url)
@@ -64,7 +65,7 @@ class FileManager
         );
 
         $string = "";
-        for($i=0;$i<6;$i++)
+        for($i = 0; $i < 6; ++$i)
             $string .= $alphabet[$i%2][rand(0,strlen($alphabet[$i%2])-1)];
 
         return $string;

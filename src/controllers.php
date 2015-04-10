@@ -13,93 +13,93 @@ $app->get('/', function () use ($app) {
 $app->get('/down/{key}', function ($key) use ($app) {
     $fs = new FileManager($app);
     $url = $fs->getURL($key);
-    if($url)
-      return $app->redirect($url,302);
+    if ($url)
+        return $app->redirect($url,302);
 
     return $app->abort(404, "Carátula no encontrada.");
 })->bind('download');
 
 function joinNames($L) {
-  $n = count($L);
-  if ($n) {
-    $s = $L[0];
-    for ($i = 1; $i < $n; ++$i)
-      $s .= '\\\\ ' . trim($L[$i]);
-    return $s;
-  } else {
-    return '';
-  }
+    $n = count($L);
+    if ($n) {
+        $s = $L[0];
+        for ($i = 1; $i < $n; ++$i)
+            $s .= '\\\\ ' . trim($L[$i]);
+        return $s;
+    } else {
+        return '';
+    }
 }
 
 function filterQuote($s) {
-  $single = false;
-  $double = false;
-  $r = '';
-  for ($i = 0; $i < strlen($s); ++$i) {
-    if ($s[$i] == '"') {
-      $r .= $double ? "''" : "``";
-      $double = !$double;
-    } elseif ($s[$i] == "'") {
-      $r .= $single ? "'" : "`";
-      $single = !$single;
-    } else {
-      $r .= $s[$i];
+    $single = false;
+    $double = false;
+    $r = '';
+    for ($i = 0; $i < strlen($s); ++$i) {
+        if ($s[$i] == '"') {
+            $r .= $double ? "''" : "``";
+            $double = !$double;
+        } elseif ($s[$i] == "'") {
+            $r .= $single ? "'" : "`";
+            $single = !$single;
+        } else {
+            $r .= $s[$i];
+        }
     }
-  }
-  return $r;
+    return $r;
 }
 
 function processContext($context) {
-  if (array_key_exists('name', $context)) {
-    $L = explode('/', $context['name']);
-    $context['name'] = joinNames($L);
-    $context['number'] = count($L);
-  } else {
-    $context['number'] = 1;
-  }
-  if (array_key_exists('title', $context)) {
-    $context['title'] = filterQuote($context['title']);
-  }
-  $categories = array(
-    'inmasc' => 'El alumno declara',
-    'infem' => 'La alumna declara',
-    'grupal' => 'Los alumnos declaran');
-  $context['cat'] =
-      array_key_exists('cat', $context) &&
-      array_key_exists($context['cat'], $categories) ?
-          $categories[$context['cat']] : $categories['inmasc'];
-  return $context;
+    if (array_key_exists('name', $context)) {
+        $L = explode('/', $context['name']);
+        $context['name'] = joinNames($L);
+        $context['number'] = count($L);
+    } else {
+        $context['number'] = 1;
+    }
+    if (array_key_exists('title', $context)) {
+        $context['title'] = filterQuote($context['title']);
+    }
+    $categories = array(
+        'inmasc' => 'El alumno declara',
+        'infem' => 'La alumna declara',
+        'grupal' => 'Los alumnos declaran');
+    $context['cat'] =
+        array_key_exists('cat', $context) &&
+        array_key_exists($context['cat'], $categories) ?
+            $categories[$context['cat']] : $categories['inmasc'];
+    return $context;
 }
 
 $app->post('/gen', function(Request $request) use ($app) {
-  $context = processContext($request->request->all());
-  $tex = $app['twig']->render('caratula.tex', $context);
-  if (($context['tex'] ?: 'false') != 'false')
-      return new Response(
-          $app['twig']->render('latex_gen.html', array('code' => $tex)));
-  $location = __DIR__ . '/../web/tmp/';
-  $tmpdir = exec('mktemp -d -p ' . $location);
-  $comp_pr = new Process('pdflatex -halt-on-error',
-      $tmpdir, array('PATH' => '/usr/bin'), $tex);
-  $comp_pr->run();
-  $response = null;
-  if ($comp_pr->isSuccessful()) {
-    $file = fopen($tmpdir . '/texput.pdf', 'r');
-    $pdf = fread($file, filesize($tmpdir . '/texput.pdf'));
-    fclose($file);
+    $context = processContext($request->request->all());
+    $tex = $app['twig']->render('caratula.tex', $context);
+    if (($context['tex'] ?: 'false') != 'false')
+        return new Response(
+            $app['twig']->render('latex_gen.html', array('code' => $tex)));
+    $location = __DIR__ . '/../web/tmp/';
+    $tmpdir = exec('mktemp -d -p ' . $location);
+    $comp_pr = new Process('pdflatex -halt-on-error',
+        $tmpdir, array('PATH' => '/usr/bin'), $tex);
+    $comp_pr->run();
+    $response = null;
+    if ($comp_pr->isSuccessful()) {
+        $file = fopen($tmpdir . '/texput.pdf', 'r');
+        $pdf = fread($file, filesize($tmpdir . '/texput.pdf'));
+        fclose($file);
 
-    $uri = "";
-    $fs = new FileManager($app);
-    $fs->upload($tmpdir . '/texput.pdf', $uri);
+        $uri = "";
+        $fs = new FileManager($app);
+        $fs->upload($tmpdir . '/texput.pdf', $uri);
 
-    $response = $app->redirect($uri, 302);
-  } else {
-    $response = new Response(
-        $app['twig']->render('latex_error.html', array('code' => $comp_pr->getOutput())),
-        400);
-  }
-  exec('rm -r ' . $tmpdir);
-  return $response;
+        $response = $app->redirect($uri, 302);
+    } else {
+        $response = new Response(
+            $app['twig']->render('latex_error.html', array('code' => $comp_pr->getOutput())),
+            400);
+    }
+    exec('rm -r ' . $tmpdir);
+    return $response;
 })->bind('caratula');
 
 
