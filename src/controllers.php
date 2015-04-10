@@ -3,11 +3,21 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Process\Process;
+use Caratula\Utils\FileManager;
 
 
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html', array());
 })->bind('homepage');
+
+$app->get('/down/{key}', function ($key) use ($app) {
+    $fs = new FileManager($app);
+    $url = $fs->getURL($key);
+    if($url)
+      return $app->redirect($url,302);
+
+    return $app->abort(404, "Carátula no encontrada.");
+})->bind('download');
 
 function joinNames($L) {
   $n = count($L);
@@ -77,7 +87,12 @@ $app->post('/gen', function(Request $request) use ($app) {
     $file = fopen($tmpdir . '/texput.pdf', 'r');
     $pdf = fread($file, filesize($tmpdir . '/texput.pdf'));
     fclose($file);
-    $response = new Response($pdf, 200, array('Content-Type' => 'application/pdf'));
+
+    $uri = "";
+    $fs = new FileManager($app);
+    $fs->upload($tmpdir . '/texput.pdf', $uri);
+
+    $response = $app->redirect($uri, 302);
   } else {
     $response = new Response(
         $app['twig']->render('latex_error.html', array('code' => $comp_pr->getOutput())),
