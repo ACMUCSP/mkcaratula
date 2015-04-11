@@ -3,3 +3,4 @@ ftp:
     user: user
     password: password
     path: http://dominio.com/
+    port: 21
