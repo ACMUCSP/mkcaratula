@@ -12,6 +12,10 @@ $app->before(function (Request $request) {
     }
 });
 
+$app->get('/', function (Request $request) use ($app) {
+    return $app->redirect($request->getBasePath() . '/app.html');
+})->bind('homepage');
+
 $app->get('/down/{key}', function ($key) use ($app) {
     $fs = new FileManager($app);
     $url = $fs->getURL($key);
