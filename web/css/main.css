@@ -10,6 +10,9 @@ body {
     cursor: pointer;
     color: #d9534f;
 }
+.error-msg {
+    color: #d9534f;
+}
 pre {
     max-height: 350px;
     overflow: auto;

@@ -5,3 +5,4 @@ composer.phar
 *.swp
 .idea/
 /config/config.yml
+/web/js/config.js
