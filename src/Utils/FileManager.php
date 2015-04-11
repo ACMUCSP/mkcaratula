@@ -27,9 +27,9 @@ class FileManager
         $login_result = ftp_login($conn_id, $this->user, $this->password);
 
         $rfile = "";
-        do{
+        do {
             $rfile = $this->easyRandom();
-        }while($this->exist($rfile));
+        } while($this->exist($rfile));
 
         $result = (ftp_put($conn_id, $rfile . '.pdf', $file, FTP_BINARY)) ? true: false;
 
