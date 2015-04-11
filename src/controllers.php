@@ -5,10 +5,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Process\Process;
 use Caratula\Utils\FileManager;
 
-
-$app->get('/', function () use ($app) {
-    return $app['twig']->render('index.html', array());
-})->bind('homepage');
+$app->before(function (Request $request) {
+    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace(is_array($data) ? $data : array());
+    }
+});
 
 $app->get('/down/{key}', function ($key) use ($app) {
     $fs = new FileManager($app);
@@ -74,9 +76,9 @@ function processContext($context) {
 $app->post('/gen', function(Request $request) use ($app) {
     $context = processContext($request->request->all());
     $tex = $app['twig']->render('caratula.tex', $context);
-    if (($context['tex'] ?: 'false') != 'false')
+    if ($context['tex'])
         return new Response(
-            $app['twig']->render('latex_gen.html', array('code' => $tex)));
+            $tex, 200, array('Content-Type' => 'text/plain'));
     $location = __DIR__ . '/../web/tmp/';
     $tmpdir = exec('mktemp -d -p ' . $location);
     $comp_pr = new Process('pdflatex -halt-on-error',
@@ -92,11 +94,11 @@ $app->post('/gen', function(Request $request) use ($app) {
         $fs = new FileManager($app);
         $fs->upload($tmpdir . '/texput.pdf', $uri);
 
-        $response = $app->redirect($uri, 302);
+        $response = new Response($uri, 201,
+            array('Content-Type' => 'text/plain', 'Location' => $uri));
     } else {
         $response = new Response(
-            $app['twig']->render('latex_error.html', array('code' => $comp_pr->getOutput())),
-            400);
+            $comp_pr->getOutput(), 400, array('Content-Type' => 'text/plain'));
     }
     exec('rm -r ' . $tmpdir);
     return $response;
