@@ -6,37 +6,24 @@ use Silex\Application;
 
 class FileManager
 {
-    private $host;
-    private $user;
-    private $password;
     private $path;
-    private $port;
+    private $dir;
 
     public function __construct(Application $app)
     {
-        $ftp_config = $app['config']['ftp'];
-        $this->host = $ftp_config['host'];
-        $this->user = $ftp_config['user'];
-        $this->password = $ftp_config['password'];
-        $this->path = $ftp_config['path'];
-        $this->port = $ftp_config['port'];
+        $storage_config = $app['config']['storage'];
+        $this->path = $storage_config['path'];
+        $this->dir = $storage_config['dir'];
     }
 
     public function upload($file, &$url)
     {
-        $conn_id = ftp_connect($this->host, $this->port);
-
-        $login_result = ftp_login($conn_id, $this->user, $this->password);
-        ftp_pasv($conn_id, true);
-
         $rfile = "";
         do {
             $rfile = $this->easyRandom();
         } while($this->exist($rfile));
 
-        $result = (ftp_put($conn_id, $rfile . '.pdf', $file, FTP_BINARY)) ? true: false;
-
-        ftp_close($conn_id);
+        $result = copy($file, $this->dir . $rfile . '.pdf');
 
         $url = $this->path . $rfile . '.pdf';
         return $result;
@@ -44,16 +31,7 @@ class FileManager
 
     public function exist($file)
     {
-        $conn_id = ftp_connect($this->host, $this->port);
-
-        $login_result = ftp_login($conn_id, $this->user, $this->password);
-        ftp_pasv($conn_id, true);
-
-        $result = (ftp_size($conn_id, $file . '.pdf') != -1) ? true : false;
-
-        ftp_close($conn_id);
-
-        return $result;
+        return file_exists($this->dir . $file . '.pdf');
     }
 
     public function getURL($file)
