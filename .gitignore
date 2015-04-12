@@ -6,4 +6,4 @@ composer.phar
 .idea/
 /config/config.yml
 /web/js/config.js
-/web/gen/
+/web/s/

@@ -1,3 +1,3 @@
 storage:
-    dir: /home/something/
-    path: http://domain.com/path
+    dir: /home/something/path/s/
+    path: http://domain.com/path/s/
