@@ -24,6 +24,13 @@ caratulaApp.config(['$routeProvider',
     }
 ]);
 
+caratulaApp.filter('noscheme', function () {
+    return function (input) {
+        input = input || '';
+        return input.slice(input.indexOf('://') + 3);
+    };
+});
+
 var caratulaControllers = angular.module('CaratulaControllers', []);
 
 caratulaControllers.controller('MainController', function ($scope, $http, $location, $rootScope) {
