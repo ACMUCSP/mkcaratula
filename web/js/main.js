@@ -28,6 +28,7 @@ var caratulaControllers = angular.module('CaratulaControllers', []);
 
 caratulaControllers.controller('MainController', function ($scope, $http, $location, $rootScope) {
     $scope.loading = false;
+    $scope.url = null;
     $scope.data = $rootScope.data ? $rootScope.data : {
         career: '',
         title: '',
@@ -62,6 +63,9 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
         }
     };
     $scope.run = function (getLatexCode) {
+        if ($scope.form.$invalid) {
+            return;
+        }
         $scope.data.tex = getLatexCode;
         if ($scope.data.cat === 'grupal') {
             var names = $scope.names[0].name;
@@ -79,6 +83,7 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
                 $scope.loading = false;
                 if (status === 201) {
                     var newWindow = window.open(headers('Location'), '_blank');
+                    $scope.url = data;
                 } else {
                     $rootScope.code = data;
                     $location.path('/tex');
