@@ -16,7 +16,7 @@ class FileManager
         $this->dir = $storage_config['dir'];
     }
 
-    public function upload($file, &$url)
+    public function upload($file, &$key)
     {
         $rfile = "";
         do {
@@ -25,7 +25,7 @@ class FileManager
 
         $result = copy($file, $this->dir . $rfile . '.pdf');
 
-        $url = $this->path . $rfile . '.pdf';
+        $key = $rfile;
         return $result;
     }
 
@@ -34,9 +34,9 @@ class FileManager
         return file_exists($this->dir . $file . '.pdf');
     }
 
-    public function getURL($file)
+    public function getURL($key)
     {
-        return ($this->exist($file)) ? $this->path . $file . '.pdf' : false;
+        return ($this->exist($key)) ? $this->path . $key . '.pdf' : false;
     }
 
     public function easyRandom()

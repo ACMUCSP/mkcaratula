@@ -94,12 +94,14 @@ $app->post('/gen', function(Request $request) use ($app) {
         $pdf = fread($file, filesize($tmpdir . '/texput.pdf'));
         fclose($file);
 
-        $uri = "";
+        $key = "";
         $fs = new FileManager($app);
-        $fs->upload($tmpdir . '/texput.pdf', $uri);
+        $fs->upload($tmpdir . '/texput.pdf', $key);
 
-        $response = new Response($uri, 201,
-            array('Content-Type' => 'text/plain', 'Location' => $uri));
+        $response = new Response(
+            $app->url('download', array('key' => $key)),
+            201,
+            array('Content-Type' => 'text/plain', 'Location' => $fs->getURL($key)));
     } else {
         $response = new Response(
             $comp_pr->getOutput(), 400, array('Content-Type' => 'text/plain'));

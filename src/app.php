@@ -6,7 +6,11 @@ use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
 
-$app = new Application();
+class CaratulaApplication extends Application {
+    use Silex\Application\UrlGeneratorTrait;
+}
+
+$app = new CaratulaApplication();
 $app->register(new UrlGeneratorServiceProvider());
 $app->register(new ValidatorServiceProvider());
 $app->register(new ServiceControllerServiceProvider());
