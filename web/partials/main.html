@@ -113,14 +113,15 @@
   <input type="hidden" name="tex" value="{{ data.tex }}">
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button class="btn btn-primary btn-large" ng-click="run(false)">
+      <button class="btn btn-primary" ng-click="run(false)">
         <i class="glyphicon glyphicon-file"></i> Generar
       </button>
-      <button class="btn btn-default btn-large" ng-click="run(true)">
+      <button class="btn btn-default" ng-click="run(true)">
         <i class="glyphicon glyphicon-console"></i> Ver Latex
       </button>
       <img src="loader.gif" ng-show="loading">
-      <span ng-show="url"><i class="glyphicon glyphicon-paperclip"></i>
+      <span ng-show="url" class="pull-right">
+        <i class="glyphicon glyphicon-paperclip"></i>
         <a href="{{ url }}">{{ url }}</a>
       </span>
     </div>
