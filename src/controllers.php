@@ -16,7 +16,7 @@ $app->get('/', function (Request $request) use ($app) {
     return $app->redirect($request->getBasePath() . '/app.html');
 })->bind('homepage');
 
-$app->get('/down/{key}', function ($key) use ($app) {
+$app->get('/d/{key}', function ($key) use ($app) {
     $fs = new FileManager($app);
     $url = $fs->getURL($key);
     if ($url)
