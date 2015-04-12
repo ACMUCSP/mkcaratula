@@ -86,8 +86,12 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
             }).
             error(function (data, status, headers, config) {
                 $scope.loading = false;
-                $rootScope.code = data;
-                $location.path('/error');
+                if (status === 400) {
+                    $rootScope.code = data;
+                    $location.path('/error');
+                } else {
+                    // inform to dev
+                }
             });
     }
 });
