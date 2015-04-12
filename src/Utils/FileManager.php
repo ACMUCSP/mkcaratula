@@ -10,6 +10,7 @@ class FileManager
     private $user;
     private $password;
     private $path;
+    private $port;
 
     public function __construct(Application $app)
     {
@@ -18,13 +19,15 @@ class FileManager
         $this->user = $ftp_config['user'];
         $this->password = $ftp_config['password'];
         $this->path = $ftp_config['path'];
+        $this->port = $ftp_config['port'];
     }
 
     public function upload($file, &$url)
     {
-        $conn_id = ftp_connect($this->host);
+        $conn_id = ftp_connect($this->host, $this->port);
 
         $login_result = ftp_login($conn_id, $this->user, $this->password);
+        ftp_pasv($conn_id, true);
 
         $rfile = "";
         do {
@@ -41,9 +44,10 @@ class FileManager
 
     public function exist($file)
     {
-        $conn_id = ftp_connect($this->host);
+        $conn_id = ftp_connect($this->host, $this->port);
 
         $login_result = ftp_login($conn_id, $this->user, $this->password);
+        ftp_pasv($conn_id, true);
 
         $result = (ftp_size($conn_id, $file . '.pdf') != -1) ? true : false;
 
