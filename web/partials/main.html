@@ -53,7 +53,8 @@
     <label for="name_ind" class="col-sm-2 control-label">
       Nombre </label>
     <div class="col-sm-10">
-      <input id="name_ind" class="form-control" name="name" ng-model="data.name">
+      <input id="name_ind" class="form-control" name="name" ng-model="data.name"
+          ng-required="data.cat !== 'grupal'">
     </div>
   </div>
   <div class="form-group has-feedback" ng-show="data.cat === 'grupal'" ng-repeat="item in names">
@@ -62,7 +63,8 @@
     <div class="col-sm-10" ng-class="{ 'col-sm-push-2': !showNamesLabel(item) }">
       <div class="input-group">
         <input id="name_{{item.id}}" class="form-control" ng-model="item.name"
-               ng-change="addNewNameBox(item)">
+               ng-change="addNewNameBox(item)"
+               ng-required="data.cat ==='grupal' && item.id !== names.length">
         <span class="input-group-addon glyphicon glyphicon-remove erase-non-clickable"
               ng-class="{ 'erase-clickable': item.name !== '' }"
               ng-click="removeNameBox(item)"></span>

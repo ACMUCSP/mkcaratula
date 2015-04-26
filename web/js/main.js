@@ -50,7 +50,8 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
         return item.id === 1;
     };
     $scope.addNewNameBox = function (item) {
-        if (item.id === $scope.names.length && $scope.names.length < 6) {
+        if (item.name !== '' && item.id === $scope.names.length
+            && $scope.names.length < 6) {
             $scope.names.push({id: $scope.names.length + 1, name: ''});
         }
     };
@@ -70,6 +71,7 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
         }
     };
     $scope.run = function (getLatexCode) {
+        var previousName = $scope.data.name;
         if ($scope.form.$invalid) {
             return;
         }
@@ -95,6 +97,7 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
                     $rootScope.code = data;
                     $location.path('/tex');
                 }
+                $scope.data.name = previousName;
             }).
             error(function (data, status, headers, config) {
                 $scope.loading = false;
@@ -104,6 +107,7 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
                 } else {
                     // inform to dev
                 }
+                $scope.data.name = previousName;
             });
     }
 });
