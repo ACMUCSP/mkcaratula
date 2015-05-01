@@ -1,6 +1,6 @@
 # UCSP cover pages generator
 
-At Universidad Católica San Pablo there is a standard cover page for papers. This webapp generates these cover
+At [Universidad Católica San Pablo](http://ucsp.edu.pe) there is a standard cover page for papers. This webapp generates these cover
 pages from a form.
 
 ## Colaborators
