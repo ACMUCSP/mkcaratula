@@ -1,9 +1,4 @@
-/vendor/
-composer.lock
-composer.phar
-/var/
 *.swp
 .idea/
 /config/config.yml
-/web/js/config.js
-/web/s/
+/static/js/config.js
