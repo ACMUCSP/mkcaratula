@@ -19,18 +19,22 @@
   \begin{center}
 
   \begin{flushright}
-    \includegraphics[width=0.5\textwidth]{../ucsp.png}\\[1cm]
+    \includegraphics[width=0.5\textwidth]{../../img/ucsp.png}\\[1cm]
     \end{flushright}
-    \textsc{\Huge {{ career|raw }} }\\[0.8cm]
-    \textsc{\LARGE {{ title|raw }} }\\[0.8cm]
-    \textsc{\huge {{ course|raw }} }\\[1.2cm]
+    \textsc{\Huge {{ .Career }} }\\[0.8cm]
+    \textsc{\LARGE {{ .Title }} }\\[0.8cm]
+    \textsc{\huge {{ .Course }} }\\[1.2cm]
   \end{center}
 
   \begin{flushright}
     \begin{minipage}{0.5\textwidth}
     \begin{flushleft}
-    \textsc{\Large {{ name|raw }}\\[0.5cm]}
-    \textsc{\Large {{ sem }} Semestre}\\[0.5cm]
+    \textsc{\Large
+    {{- range $i, $name := .Names }}
+    {{- if $i }}\\{{ end }}
+    {{ $name -}}
+    {{ end -}}\\[0.5cm]}
+    \textsc{\Large {{ .Semester }} Semestre}\\[0.5cm]
     \textsc{\Large \the\year}\\
     \end{flushleft}
     \end{minipage}
@@ -39,29 +43,20 @@
   \vfill
   \begin{center}
     \begin{minipage}{0.95\textwidth}
-      \large{
-      ``{{ cat }} haber realizado el presente trabajo de acuerdo
+        \large{``{{ .StudentsDeclaration }} haber realizado el presente trabajo de acuerdo
       a las normas de la Universidad Católica San Pablo''}
     \end{minipage}
 
     \vspace{1.8cm}
 
-    \line(1,0){70}
-    {% if number > 1 %}
-      {% for i in 2..min(number,4) %}
-        \hspace{0.8em}
-        \line(1,0){80}
-      {% endfor %}
-      {% if number > 4 %}
+    {{ range $i, $name := .Names }}
+    {{- if and (ne $i 3) $i }} \hspace{1em} {{ else if eq $i 3 }}
 
-      \vspace{0.7cm}
+    \vspace{0.7cm}
 
-        {% for i in 5..number %}
-          \hspace{0.8em}
-          \line(1,0){70}
-        {% endfor %}
-      {% endif %}
-    {% endif %}
+    {{ end -}}
+    \line(1,0){100}
+    {{- end }}
 
   \end{center}
 
