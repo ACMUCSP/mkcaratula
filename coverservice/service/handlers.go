@@ -63,7 +63,6 @@ func GenerateCoverHandler(w http.ResponseWriter, r *http.Request) {
         data, _ := json.Marshal(CoverResponse{pdfUrl.String()})
         common.WriteJsonResponse(w, http.StatusOK, data)
     }
-
 }
 
 

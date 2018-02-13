@@ -1,0 +1,8 @@
+version: "3.3"
+
+services:
+  coverservice:
+    build:
+      context: .
+      dockerfile: coverservice/Dockerfile
+    image: acmucsp/mkcaratula_coverservice

@@ -4,3 +4,4 @@
 /static/js/config.js
 /gen/
 /tmp/
+*-linux-amd64

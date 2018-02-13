@@ -2,7 +2,6 @@
 
 \usepackage[pdftex]{graphicx}
 \usepackage[utf8]{inputenc}
-\usepackage[spanish]{babel}
 \usepackage[a4paper]{geometry}
 \linespread{1.5}\selectfont
 \usepackage{setspace}
@@ -11,15 +10,14 @@
 \begin{document}
 
 \newgeometry{right=2.5cm,left=2.5cm,top=3.5cm,bottom=2.5cm}
+
 \begin{titlepage}
 \fontfamily{phv}\selectfont
 
-\begin{minipage}[t][0.99\textheight][t]{0.9\textwidth}
-
   \begin{center}
 
-  \begin{flushright}
-    \includegraphics[width=0.5\textwidth]{../../img/ucsp.png}\\[1cm]
+    \begin{flushright}
+      \includegraphics[width=0.4\textwidth]{../../img/ucsp.png}\\[1cm]
     \end{flushright}
     \textsc{\Huge {{ .Career }} }\\[0.8cm]
     \textsc{\LARGE {{ .Title }} }\\[0.8cm]
@@ -59,8 +57,6 @@
     {{- end }}
 
   \end{center}
-
-\end{minipage}
 
 \end{titlepage}
 \restoregeometry
