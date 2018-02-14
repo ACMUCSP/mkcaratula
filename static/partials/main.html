@@ -20,20 +20,18 @@
       </datalist>
     </div>
   </div>
+   <div class="form-group">
+     <label for="course" class="col-sm-2 control-label"> Curso </label>
+     <div class="col-sm-10">
+       <input id="course" class="form-control" name="course" ng-model="data.course" required>
+     </div>
+   </div>
   <div class="form-group">
     <label for="title" class="col-sm-2 control-label"> Título del trabajo </label>
     <div class="col-sm-10">
       <input id="title" class="form-control" name="title" ng-model="data.title" required>
     </div>
   </div>
-
-  <div class="form-group">
-    <label for="course" class="col-sm-2 control-label"> Curso </label>
-    <div class="col-sm-10">
-      <input id="course" class="form-control" name="course" ng-model="data.course" required>
-    </div>
-  </div>
-
   <div class="form-group">
     <label class="col-sm-2 control-label"> Tipo </label>
     <div class="col-sm-10">
@@ -109,6 +107,22 @@
         <i class="glyphicon glyphicon-console"></i> Ver Latex
       </button>
       <img src="loader.gif" ng-show="loading">
+    </div>
+  </div>
+  <div class="modal fade" id="message-modal" tabindex="-1" role="dialog" aria-labelledby="message-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="message-modal-label">{{ modal.title }}</h4>
+        </div>
+        <div class="modal-body">
+          <p>{{ modal.message }}</p>
+          <div class="modal-icon">
+            <i class="glyphicon" ng-class="modal.glyphicon" ng-show="!!modal.glyphicon"></i>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </form>

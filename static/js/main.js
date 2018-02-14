@@ -106,9 +106,23 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
                     $scope.url = newWindow.location = response.data.url;
                 }
             }, function (response) {
+                if (newWindow !== null) {
+                    newWindow.close();
+                }
                 $scope.loading = false;
-                console.log(response);
-                // TODO: proper error message to the user
+                $scope.modal = {
+                    title: "Algo salió mal ☹"
+                };
+                if (response.status === 400) {
+                    $scope.modal.message = "Al parecer algún campo fue llenado incorrectamente. " +
+                        "Por favor revisa el formulario e intenta nuevamente.";
+                    $scope.modal.glyphicon = "glyphicon-eye-open";
+                } else {
+                    $scope.modal.message = "Un error ocurrió durante la generación de la carátula. " +
+                        "Lo arreglaremos a la brevedad.";
+                    $scope.modal.glyphicon = "glyphicon-wrench";
+                }
+                $("#message-modal").modal();
             });
     }
 });

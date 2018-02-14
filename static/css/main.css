@@ -16,3 +16,8 @@ pre {
     max-height: 350px;
     overflow: auto;
 }
+.modal-icon {
+    color: #ccc;
+    font-size: 6em;
+    text-align: center;
+}
