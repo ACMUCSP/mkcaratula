@@ -7,7 +7,6 @@ STATIC_FILES := $(wildcard static/*)
 
 images: coverservice/coverservice-linux-amd64 \
 		coverservice/Dockerfile \
-		$(STATIC_FILES) \
 		nginx/Dockerfile \
 		docker-compose.yml
 	docker-compose build

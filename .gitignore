@@ -1,7 +1,5 @@
 *.swp
 .idea/
-/config/config.yml
-/static/js/config.js
 /gen/
 /tmp/
 *-linux-amd64
