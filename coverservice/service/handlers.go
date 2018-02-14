@@ -9,6 +9,8 @@ import (
     "os"
 )
 
+const AppName = "coverservice"
+
 type CoverResponse struct {
     Url string `json:"url"`
 }
@@ -71,7 +73,7 @@ func GetCoverHandler(w http.ResponseWriter, r *http.Request) {
     filename := path.Join(kGenDir, key + ".pdf")
     if _, err := os.Stat(filename); err == nil {
         w.Header().Set("Content-Type", "application/pdf")
-        w.Header().Set("X-Accel-Redirect", filename)
+        w.Header().Set("X-Accel-Redirect", "/" + path.Join(AppName, filename))
         w.WriteHeader(http.StatusOK)
     } else {
         w.WriteHeader(http.StatusNotFound)

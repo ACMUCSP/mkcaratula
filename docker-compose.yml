@@ -6,3 +6,18 @@ services:
       context: .
       dockerfile: coverservice/Dockerfile
     image: acmucsp/mkcaratula_coverservice
+    volumes:
+      - cover_gen:/srv/coverservice/gen
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    image: acmucsp/mkcaratula_nginx
+    volumes:
+      - cover_gen:/srv/coverservice/gen
+    ports:
+      - 80:80
+
+volumes:
+  cover_gen:

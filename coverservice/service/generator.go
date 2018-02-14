@@ -10,6 +10,7 @@ import (
     "path"
     "bytes"
     "github.com/sirupsen/logrus"
+    "github.com/ACMUCSP/mkcaratula/common"
 )
 
 type CoverContext struct {
@@ -56,13 +57,13 @@ func easyRandom() string {
 }
 
 
-func storeCoverPage(tmpDir, genDir string) (filename string, err error) {
-    filename = easyRandom() + ".pdf"
-    err = os.Rename(path.Join(tmpDir, "texput.pdf"), path.Join(genDir, filename))
+func storeCoverPage(tmpDir, genDir string) (string, error) {
+    filename := easyRandom() + ".pdf"
+    err := common.MoveFile(path.Join(tmpDir, "texput.pdf"), path.Join(genDir, filename))
     if err != nil {
-        filename = ""
+        return "", err
     }
-    return
+    return filename, nil
 }
 
 

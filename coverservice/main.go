@@ -8,10 +8,8 @@ import (
     "github.com/ACMUCSP/mkcaratula/coverservice/service"
 )
 
-var appName = "coverservice"
-
 func main() {
-    logrus.Info("Starting %s", appName)
+    logrus.Info("Starting %s", service.AppName)
     rand.Seed(time.Now().UnixNano())
     common.StartWebServer("8000", service.Routes)
 }
