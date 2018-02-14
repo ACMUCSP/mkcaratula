@@ -9,13 +9,13 @@ var Routes = common.Routes{
     common.Route{
         "GenerateCover",
         "POST",
-        "/generate",
+        "/caratula/generate",
         GenerateCoverHandler,
     },
     common.Route{
         "GetCover",
         "GET",
-        "/{key:[a-z]+}.pdf",
+        "/caratula/{key:[a-z]+}.pdf",
         GetCoverHandler,
     },
 }
