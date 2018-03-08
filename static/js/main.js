@@ -82,6 +82,7 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
         if ($scope.form.$invalid) {
             return;
         }
+        $scope.data.names = [];
         for (var i = 0; i < $scope.names.length; ++i) {
             var name = $scope.names[i].name.trim();
             if (name !== '') {
