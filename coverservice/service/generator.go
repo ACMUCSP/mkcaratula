@@ -94,8 +94,7 @@ func GenerateCoverPage(tmpDir, genDir string, ctx CoverContext) (filename string
     var out []byte
     out, err = cmd.CombinedOutput()
     if err != nil {
-        logrus.Errorf("Failed to run pdflatex: %s", err)
-        logrus.Info(string(out))
+        logrus.WithField("output", string(out)).Errorf("Failed to run pdflatex: %s", err)
         return
     }
 

@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-    logrus.Info("Starting %s", service.AppName)
+    logrus.Infof("Starting %s", service.AppName)
     rand.Seed(time.Now().UnixNano())
     common.StartWebServer("8000", service.Routes)
 }
