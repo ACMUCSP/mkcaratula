@@ -1,12 +1,13 @@
 package service
 
 import (
+    "path"
+    "os"
+    "bytes"
     "net/http"
     "encoding/json"
     "github.com/gorilla/mux"
     "github.com/ACMUCSP/mkcaratula/common"
-    "path"
-    "os"
 )
 
 const AppName = "coverservice"
@@ -25,8 +26,43 @@ const kTmpDir = "tmp"
 const kGenDir = "gen"
 
 
+func filterSpecialCharacters(str string) string {
+    var buffer bytes.Buffer
+    openQuotes := false
+    for _, c := range str {
+        switch c {
+        case '"':
+            if openQuotes {
+                buffer.WriteString("''")
+            } else {
+                buffer.WriteString("``")
+            }
+            openQuotes = !openQuotes
+        case '&', '%', '$', '#', '_', '{', '}':
+            buffer.WriteRune('\\')
+            buffer.WriteRune(c)
+        case '~':
+            buffer.WriteString("\textasciitilde")
+        case '^':
+            buffer.WriteString("\textasciicircum")
+        case '\\':
+            buffer.WriteString("\textbackslash")
+        default:
+            buffer.WriteRune(c)
+        }
+    }
+    return buffer.String()
+}
+
+
 func processContext(ctx *CoverContext) {
-    // TODO: filter quotes
+    ctx.Career = filterSpecialCharacters(ctx.Career)
+    ctx.Title = filterSpecialCharacters(ctx.Title)
+    ctx.Course = filterSpecialCharacters(ctx.Course)
+    ctx.Semester = filterSpecialCharacters(ctx.Semester)
+    for i, name := range ctx.Names {
+        ctx.Names[i] = filterSpecialCharacters(name)
+    }
 }
 
 
