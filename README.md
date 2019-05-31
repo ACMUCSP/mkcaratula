@@ -7,7 +7,7 @@ pages from a form.
 
 - [Aldo Culquicondor](https://github.com/alculquicondor) (maintainer)
 - [Juan Salas](https://github.com/ratasxy)
-- [Javier Quinte](https://github.com/jaqus)
+- [Javier Quinte](https://github.com/jaqusa)
 
 ## Development
 
