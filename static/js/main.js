@@ -40,12 +40,19 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
         career: '',
         title: '',
         course: '',
-        cat: 'inmasc',
-        name: '',
-        sem: '1er',
-        tex: false
+        gender: 'm',
+        names: [],
+        semester: '1er'
     };
-    $scope.names = [{id: 1, name: ''}, {id: 2, name: ''}];
+    if ($scope.data.names.length > 0) {
+        $scope.names = [];
+        for (var i = 0; i < $scope.data.names.length; ++i) {
+            $scope.names.push({id: i + 1, name: $scope.data.names[i]})
+        }
+        $scope.data.names = [];
+    } else {
+        $scope.names = [{id: 1, name: ''}];
+    }
     $scope.showNamesLabel = function (item) {
         return item.id === 1;
     };
@@ -56,7 +63,7 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
         }
     };
     $scope.removeNameBox = function (item) {
-        if ($scope.names.length <= 2) {
+        if ($scope.names.length === 1) {
             item.name = '';
         } else {
             var cnt = 0, newNames = [];
@@ -71,43 +78,52 @@ caratulaControllers.controller('MainController', function ($scope, $http, $locat
         }
     };
     $scope.run = function (getLatexCode) {
-        var previousName = $scope.data.name;
+        var url = "generate", newWindow;
         if ($scope.form.$invalid) {
             return;
         }
-        $scope.data.tex = getLatexCode;
-        if ($scope.data.cat === 'grupal') {
-            var names = $scope.names[0].name;
-            for (var i = 1; i < $scope.names.length; ++i) {
-                if ($scope.names[i].name !== '') {
-                    names += '/' + $scope.names[i].name;
-                }
+        $scope.data.names = [];
+        for (var i = 0; i < $scope.names.length; ++i) {
+            var name = $scope.names[i].name.trim();
+            if (name !== '') {
+                $scope.data.names.push(name);
             }
-            $scope.data.name = names;
         }
         $rootScope.data = $scope.data;
         $scope.loading = true;
-        $http.post(genUrl, $scope.data).
-            success(function (data, status, headers, config) {
+        if (getLatexCode) {
+            url = url + "?tex";
+        } else {
+            newWindow = window.open()
+        }
+        $http.post(url, $scope.data).
+            then(function (response) {
                 $scope.loading = false;
-                if (status === 201) {
-                    var newWindow = window.open(headers('Location'), '_blank');
-                    $scope.url = data;
-                } else {
-                    $rootScope.code = data;
+                if (getLatexCode) {
+                    console.log(response.data);
+                    $rootScope.code = response.data.tex;
                     $location.path('/tex');
-                }
-                $scope.data.name = previousName;
-            }).
-            error(function (data, status, headers, config) {
-                $scope.loading = false;
-                if (status === 400) {
-                    $rootScope.code = data;
-                    $location.path('/error');
                 } else {
-                    // inform to dev
+                    $scope.url = newWindow.location = response.data.url;
                 }
-                $scope.data.name = previousName;
+            }, function (response) {
+                if (newWindow !== null) {
+                    newWindow.close();
+                }
+                $scope.loading = false;
+                $scope.modal = {
+                    title: "Algo salió mal ☹"
+                };
+                if (response.status === 400) {
+                    $scope.modal.message = "Al parecer algún campo fue llenado incorrectamente. " +
+                        "Por favor revisa el formulario e intenta nuevamente.";
+                    $scope.modal.glyphicon = "glyphicon-eye-open";
+                } else {
+                    $scope.modal.message = "Un error ocurrió durante la generación de la carátula. " +
+                        "Lo arreglaremos a la brevedad.";
+                    $scope.modal.glyphicon = "glyphicon-wrench";
+                }
+                $("#message-modal").modal();
             });
     }
 });

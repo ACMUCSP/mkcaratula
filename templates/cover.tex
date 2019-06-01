@@ -1,0 +1,65 @@
+\documentclass[pdftex,12pt,a4paper]{article}
+
+\usepackage[pdftex]{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\linespread{1.5}\selectfont
+\usepackage{setspace}
+\usepackage{helvet}
+
+\begin{document}
+
+\newgeometry{right=2.5cm,left=2.5cm,top=3.5cm,bottom=2.5cm}
+
+\begin{titlepage}
+\fontfamily{phv}\selectfont
+
+  \begin{center}
+
+    \begin{flushright}
+      \includegraphics[width=0.4\textwidth]{../../img/ucsp.png}\\[1cm]
+    \end{flushright}
+    \textsc{\Huge {{ .Career }} }\\[0.8cm]
+    \textsc{\LARGE {{ .Title }} }\\[0.8cm]
+    \textsc{\huge {{ .Course }} }\\[1.2cm]
+  \end{center}
+
+  \begin{flushright}
+    \begin{minipage}{0.5\textwidth}
+    \begin{flushleft}
+    \textsc{\Large
+    {{- range $i, $name := .Names }}
+    {{- if $i }}\\{{ end }}
+    {{ $name -}}
+    {{ end -}}\\[0.5cm]}
+    \textsc{\Large {{ .Semester }} Semestre}\\[0.5cm]
+    \textsc{\Large \the\year}\\
+    \end{flushleft}
+    \end{minipage}
+  \end{flushright}
+
+  \vfill
+  \begin{center}
+    \begin{minipage}{0.95\textwidth}
+        \large{``{{ .StudentsDeclaration }} haber realizado el presente trabajo de acuerdo
+      a las normas de la Universidad Católica San Pablo''}
+    \end{minipage}
+
+    \vspace{1.8cm}
+
+    {{ range $i, $name := .Names }}
+    {{- if and (ne $i 3) $i }} \hspace{1em} {{ else if eq $i 3 }}
+
+    \vspace{0.7cm}
+
+    {{ end -}}
+    \line(1,0){100}
+    {{- end }}
+
+  \end{center}
+
+\end{titlepage}
+\restoregeometry
+
+\end{document}

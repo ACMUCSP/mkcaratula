@@ -20,54 +20,39 @@
       </datalist>
     </div>
   </div>
+   <div class="form-group">
+     <label for="course" class="col-sm-2 control-label"> Curso </label>
+     <div class="col-sm-10">
+       <input id="course" class="form-control" name="course" ng-model="data.course" required>
+     </div>
+   </div>
   <div class="form-group">
     <label for="title" class="col-sm-2 control-label"> Título del trabajo </label>
     <div class="col-sm-10">
       <input id="title" class="form-control" name="title" ng-model="data.title" required>
     </div>
   </div>
-
-  <div class="form-group">
-    <label for="course" class="col-sm-2 control-label"> Curso </label>
-    <div class="col-sm-10">
-      <input id="course" class="form-control" name="course" ng-model="data.course" required>
-    </div>
-  </div>
-
   <div class="form-group">
     <label class="col-sm-2 control-label"> Tipo </label>
     <div class="col-sm-10">
       <label class="radio-inline">
-        <input type="radio" name="cat" value="inmasc" ng-model="data.cat"> Individual (Masc.)
+        <input type="radio" name="gender" value="m" ng-model="data.gender"> Masculino
       </label>
       <label class="radio-inline">
-        <input type="radio" name="cat" value="infem" ng-model="data.cat"> Individual (Fem.)
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="cat" value="grupal" ng-model="data.cat"> Grupal
+        <input type="radio" name="gender" value="f" ng-model="data.gender"> Femenino
       </label>
     </div>
   </div>
 
-  <div class="form-group" ng-show="data.cat !== 'grupal'">
-    <label for="name_ind" class="col-sm-2 control-label">
-      Nombre </label>
-    <div class="col-sm-10">
-      <input id="name_ind" class="form-control" name="name" ng-model="data.name"
-          ng-required="data.cat !== 'grupal'">
-    </div>
-  </div>
-  <div class="form-group has-feedback" ng-show="data.cat === 'grupal'" ng-repeat="item in names">
+  <div class="form-group has-feedback" ng-repeat="item in names">
     <label for="name_1" class="col-sm-2 control-label" ng-show="showNamesLabel(item)">
       Nombres </label>
     <div class="col-sm-10" ng-class="{ 'col-sm-push-2': !showNamesLabel(item) }">
       <div class="input-group">
         <input id="name_{{item.id}}" class="form-control" ng-model="item.name"
                ng-change="addNewNameBox(item)"
-               ng-required="data.cat ==='grupal' && item.id !== names.length">
-        <span class="input-group-addon glyphicon glyphicon-remove erase-non-clickable"
-              ng-class="{ 'erase-clickable': item.name !== '' }"
-              ng-click="removeNameBox(item)"></span>
+               ng-required="item.id == 1 || item.id !== names.length">
+        <span class="input-group-addon" ng-click="removeNameBox(item)" ng-class="{ 'erase-clickable': item.name !== ''}"><i class="glyphicon glyphicon-remove"></i></span>
       </div>
     </div>
   </div>
@@ -75,40 +60,40 @@
     <label class="col-sm-2 control-label"> Semestre </label>
     <div class="col-sm-10">
       <label class="radio-inline">
-        <input type="radio" name="sem" value="1er" ng-model="data.sem"> 1er
+        <input type="radio" name="semester" value="1er" ng-model="data.semester"> 1er
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="2do" ng-model="data.sem"> 2do
+        <input type="radio" name="semester" value="2do" ng-model="data.semester"> 2do
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="3er" ng-model="data.sem"> 3er
+        <input type="radio" name="semester" value="3er" ng-model="data.semester"> 3er
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="4to" ng-model="data.sem"> 4to
+        <input type="radio" name="semester" value="4to" ng-model="data.semester"> 4to
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="5to" ng-model="data.sem"> 5to
+        <input type="radio" name="semester" value="5to" ng-model="data.semester"> 5to
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="6to" ng-model="data.sem"> 6to
+        <input type="radio" name="semester" value="6to" ng-model="data.semester"> 6to
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="7mo" ng-model="data.sem"> 7mo
+        <input type="radio" name="semester" value="7mo" ng-model="data.semester"> 7mo
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="8vo" ng-model="data.sem"> 8vo
+        <input type="radio" name="semester" value="8vo" ng-model="data.semester"> 8vo
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="9no" ng-model="data.sem"> 9no
+        <input type="radio" name="semester" value="9no" ng-model="data.semester"> 9no
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="10mo" ng-model="data.sem"> 10mo
+        <input type="radio" name="semester" value="10mo" ng-model="data.semester"> 10mo
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="11er" ng-model="data.sem"> 11er
+        <input type="radio" name="semester" value="11er" ng-model="data.semester"> 11er
       </label>
       <label class="radio-inline">
-        <input type="radio" name="sem" value="12do" ng-model="data.sem"> 12do
+        <input type="radio" name="semester" value="12do" ng-model="data.semester"> 12do
       </label>
     </div>
   </div>
@@ -122,10 +107,22 @@
         <i class="glyphicon glyphicon-console"></i> Ver Latex
       </button>
       <img src="loader.gif" ng-show="loading">
-      <span ng-show="url" class="pull-right">
-        <i class="glyphicon glyphicon-paperclip"></i>
-        <a href="{{ url }}" target="_blank">{{ url | noscheme }}</a>
-      </span>
+    </div>
+  </div>
+  <div class="modal fade" id="message-modal" tabindex="-1" role="dialog" aria-labelledby="message-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="message-modal-label">{{ modal.title }}</h4>
+        </div>
+        <div class="modal-body">
+          <p>{{ modal.message }}</p>
+          <div class="modal-icon">
+            <i class="glyphicon" ng-class="modal.glyphicon" ng-show="!!modal.glyphicon"></i>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </form>
